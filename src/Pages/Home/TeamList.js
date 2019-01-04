@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import TeamMemberBio from "./TeamMemberBio";
-import { connect } from "react-redux";
 
 class TeamList extends Component {
   render() {
-    console.log(this.props);
+
     var users = [
       {
         name: "Captain Marvel",
@@ -42,10 +41,5 @@ class TeamList extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    heroes: state.heroes
-  };
-};
 
-export default connect(mapStateToProps)(TeamList);
+export default TeamList;

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { createHeroes } from "../../Store/actions/projectActions";
+import { database } from '../../config/fbConfig';
 
 class CreateHero extends Component {
   constructor() {
@@ -36,7 +35,16 @@ class CreateHero extends Component {
   handleSubmit(event) {
     alert("A hero was added to database ");
     event.preventDefault();
-    this.props.createHeroes(this.state);
+
+    const itemsRef = database.ref('heroes');
+    const item = {
+      name: this.state.name,
+      age: this.state.age,
+      email: this.state.email,
+      power: this.state.power
+    }
+    itemsRef.push(item);
+
     this.setState({
       name: "",
       age: "",
@@ -44,6 +52,7 @@ class CreateHero extends Component {
       power: ""
     });
   }
+
   render() {
     return (
       <div className="container">
@@ -88,13 +97,4 @@ class CreateHero extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    createHeroes: hero => dispatch(createHeroes(hero))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(CreateHero);
+export default CreateHero;
